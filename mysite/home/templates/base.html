@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" description="AP Programming group">
+        <meta name="keywords" description="e-commerce, boostrap, html">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        {% load static %}
+        <link rel="shortcut icon" href="{% static 'Images/Phones/Samsung A21-2.webp' %}">
+
+        <!--Bootstrap-->
+        <title>{% block title %} Noxx {% endblock %}</title>
+        {% load static %}
+        <!-- CSS linking-->
+        <link rel="stylesheet" type="text/css" href="{% static ''%}CSS/index.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+        
+        <!-- Javascript-->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
+        
+        <!-- jQuery !-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+        
+        <!-- jQuery UI !-->
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+</head>
+<body>
+    
+
+
+<!--Navigation Bar-->
+ <section id="nav-bar">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/"> <img src="{% static ''%}Images/Phones/Samsung A21-1.webp"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/home">Home<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/products/computers">Computers</a>
+                  <a class="dropdown-item" href="/products/phones">Phones</a>
+                  <a class="dropdown-item" href="/products/laptops">Laptops</a>
+                  <a class="dropdown-item" href="/products/accessories">Accessories</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/terms">Terms &amp; Conditions</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/aboutus">About Us</a>
+              </li>
+              {% if user.id is None %}  
+                <li class="nav-item dropdown">
+                  <a class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/login">Login</a>
+                    <a class="dropdown-item" href="/signup">Sign Up</a>
+                  </div>
+                </li>
+              {% else %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.first_name }}</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/user">My Profile</a>
+                    <a class="dropdown-item" href="/cart">My Cart</a>
+                    <a class="dropdown-item" href="/user/myorders">My Orders</a>
+                    <a class="dropdown-item" href="/wishlist">My WIshlist</a>
+                    <a class="dropdown-item" href="/signout">Logout</a>
+                  </div>
+                </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link cart-logo" href="/cart"><img src="{% static ''%}Images/Nav & Logo/cart.png" width="30px" height="30px"></a>
+              </li>
+            
+<!-- this script file for auto search has been copied from http://www.lalicode.com/post/5/ -->
+            <script>
+
+              $(function() {
+                $("#query").autocomplete({
+                  source: "/search_ajax/",
+                  select: function (event, ui) { //item selected
+                    AutoCompleteSelectHandler(event, ui)
+                  },
+                  minLength: 2,
+                });
+              });
+            
+              function AutoCompleteSelectHandler(event, ui)
+              {
+                var selectedObj = ui.item;
+              }
+            
+            </script>
+
+            <!-- search area   -->
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/search/" method="POST">
+              {% csrf_token %}              
+              <input class="form-control mr-sm-2" type="search" placeholder="Have you got it?" aria-label="Search" id="query" name="query">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            
+
+            <!--
+              <div class="footer-sec show-on-mobile">
+              <p class="container">Follow Us</p>
+              <p class="col-md-12 social">
+                <a href="#"><span class="fa fa-facebook"></span></a>
+                <a href="#"><span class="fa fa-twitter"></span></a>
+                <a href="#"><span class="fa fa-instagram"></span></a>
+                <a href="#"><span class="fa fa-linkedin"></span></a>
+                <a href="#"><span class="fa fa-youtube"></span></a>
+              </p>
+              <span class="copyright">&COPY;Copyright 2020 AP Programming. All rights reserved</span>
+            </div>
+            -->
+        </div>
+    </nav>
+</section>
+<!--End of Nav Bar-->
+    {% block slider %} {% endblock %}
+    {% block body %} {% endblock %}
+    {% block products %} {% endblock %}
+    
+    {% block footer %} {% endblock %}
+
+</body>
+</html>

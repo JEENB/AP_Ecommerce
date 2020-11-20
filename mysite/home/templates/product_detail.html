@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+{% block title %}  {{ product.title }} {% endblock %}
+{% block body %}
+{% load static %}   
+  
+{% if messages %}
+{% for message in messages %}
+<div style="float: left; margin-left: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; background-color: rgb(178, 223, 178); padding: 7px; border-radius: 5px;font-size: 12px; ">
+  {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+  <!--All Products-->
+    <section id="details">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <img src="{{ product.image }}" width="100%" id="productImg">
+            <div class="small-img-row">
+              {% for pic in img %}
+                <div class="small-img-col">
+                  <img src="{{ pic.image }}" width="100%" class="small-img">
+                </div>  
+              {% endfor %}
+              <!-- <div class="small-img-col">
+                <img src="{{ product.image }}" width="100%" class="small-img">
+              </div>
+
+              <div class="small-img-col">
+                <img src="{{ product.image }}" width="100%" class="small-img">
+              </div>
+
+              <div class="small-img-col">
+                <img src="{% static '' %}Images/Phones/Samsung A21-3.webp" width="100%" class="small-img">
+              </div> -->
+            </div>
+          </div>
+          <div class="col">
+            <h1> {{ product.title }}</h1>
+            <h4>Rs. {{ product.price }}</h4>
+            <div>
+
+           
+              <form action="/order/cart/{{ product.id }}" method="POST">
+                {% csrf_token %}
+                <div style="padding-top: 0.5cm;" class="qty-input">
+                  <span class="text-uppercase">QTY: </span>
+                  <input style="width: 50px; border: none; " class="input" name="quantity" type="number" value="1" min="1" max="{{ product.quantity }}">
+                </div>
+                <div style="padding-top: 0.5cm;">
+                  <button type="submit" class="btn btn-primary">
+                      <i class="fa fa-shopping-cart"></i> Add to Cart
+                  </button> 
+                  <a href="/wishlist/wishlistcart/{{ product.id }}" class="btn btn-primary"> Add to Wishlist</a>
+
+
+                </div>
+              </form>
+            </div>
+            <h3>Product Details</h3>
+            <p>
+              {{ product.detail }}
+            </p>
+            <h3>Average User Rating ({{ product.averagerev |stringformat:".1f" }})</h3>
+
+            <div class="star-rating">
+              {% if product.averagerev <= 1%}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>  
+                    {% elif product.averagerev  <= 2 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+
+                    {% elif product.averagerev <= 3 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i> 
+
+                    {% elif product.averagerev <= 4 %}
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i> 
+
+                    {% elif product.averagerev <= 5 %}
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+
+                    {% else %}
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                  {% endif %}
+    
+            </div>
+          </div>
+
+        </div> 
+      </div>
+    </section>
+
+      <!-------Reviews------->
+  <!-------Reviews------->
+  <section id="reviews">
+    <div class="nav-tabs">
+      <div class="tab" >
+        <h3 style="text-align: center;">Reviews ({{ product.countrev }})</h3>
+      </div>
+    
+  
+      <div id="reviews" class="tabcontent">
+        <div>
+          {% for rev in reviews %}
+                <div style="padding: 10px;">
+                  <p>
+                    <strong>{{ rev.user.first_name }} </strong>
+                    <span>– </span><span>{{ rev.created }}</span>
+                    <p style="width: 50%;">{{ rev.comment }}</p>
+                  </p>
+                  <div class="star-rating">
+                    {% if rev.rate == 1 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>  
+                    {% elif rev.rate == 2 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+
+                    {% elif rev.rate == 3 %}
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i> 
+
+                    {% elif rev.rate == 4 %}
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i> 
+
+                    {% else %}
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+
+                  {% endif %}
+                  </div>
+
+                </div>
+
+                
+          {% endfor %} 
+      </div>      
+          <hr>
+          <h3 style="text-align: center;">Add your review</h3>
+          <div style="padding: 1cm;">
+            <!-- Your review -->
+            <form method="POST" action="/product/addreview/{{ product.id }}">
+              {% csrf_token %}
+              <div class="review-form" >
+                <input type="text"  maxlength="1000" style="width: 20cm; height: 5cm;" id="review-form" rows="4" placeholder="Your Review" name = 'comment'></input>
+              </div>
+              <div class="star-rating" style="margin-top: 0.3cm;"> 
+                <p> Rating</p>            
+                <input class= "fa fa-star" type="radio" id="star1" name="rate" value="1" /><label for="star1"></label>
+                <input class= "fa fa-star" type="radio" id="star2" name="rate" value="2" /><label for="star2"></label>
+                <input class= "fa fa-star" type="radio" id="star3" name="rate" value="3" /><label for="star3"></label>
+                <input class= "fa fa-star" type="radio" id="star4" name="rate" value="4" /><label for="star4"></label>
+                <input class= "fa fa-star" type="radio" id="star5" name="rate" value="5" /><label for="star5"></label>
+              </div>
+              {% if user.id is none %}
+               <h4> Please Login to add review </h4>
+              {% else %}
+                <div class="text-left pb-2">
+                  <button class="btn btn-primary">Add a review</button>
+                </div>
+              {% endif %}
+            </form>
+          </div>
+      
+    </div>
+
+    <script>
+      function openItem(evt, ItemName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(ItemName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+      document.getElementById("defaultOpen").click();
+    </script>
+  </section>
+  
+    
+    
+
+    
+
+
+
+    
+<section id="smart-phones">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2><b>Similar Products </b></h2>
+      <div class="row row2">
+        </div>
+      <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">  
+      <!-- Wrapper for carousel items -->
+      <div class="carousel-inner">
+        <div class="item active">
+          <div class="row">
+            {% for smart in more_like %}
+
+              <div class="col-sm-3">
+                <div class="thumb-wrapper">
+                  <div class="img-box">
+                    <img src="{{ smart.image }}" class="img-responsive" alt="hello">
+                  </div>
+                  <div class="thumb-content">
+                    <a class="nav-link" href="/product/{{ smart.id }}/{{ smart.slug }}"><h4>{{ smart.title }}</h4></a> 
+                    <div class="star-rating">
+                      {% if smart.averagerev <= 1%}
+                      <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                      </ul> 
+                      {% elif smart.averagerev  <= 2 %}
+                      <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                      </ul> 
+
+                      {% elif smart.averagerev <= 3 %}
+                      <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                      </ul> 
+
+                      {% elif smart.averagerev <= 4 %}
+                      <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                      </ul> 
+
+                      {% elif smart.averagerev <= 5 %}
+                      <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star"></i> 
+                      </ul> 
+
+                      {% else %}
+                      <ul class="list-inline">
+                          <li class="list-inline-item"><i class="fa fa-star"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                          <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                      </ul> 
+                      {% endif %}
+                    </div>
+                    <p class="item-price"> <span>Rs. {{ smart.price }}</span></p>
+                    <a href="/order/cart/{{ smart.id }}" class="btn btn-primary">Add to Cart</a>
+                    <a href="/wishlist/wishlistcart/{{ smart.id }}" class="btn btn-primary"> Add to Wishlist</a>
+
+                  </div>						
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+</section>
+
+    <div class="viewing">
+      <a href="/" class="btn btn-primary"><span>View More</span></a>
+    </div>
+    
+  </body>
+
+  <!------- JS for Product Gallery-->
+  <script>
+    var productImg = document.getElementById("productImg");
+    var SmallImg = document.getElementsByClassName("small-img");
+
+    SmallImg[0].onclick = function()
+    {
+      productImg.src = SmallImg[0].src;
+    }
+    SmallImg[1].onclick = function()
+    {
+      productImg.src = SmallImg[1].src;
+    }
+    SmallImg[2].onclick = function()
+    {
+      productImg.src = SmallImg[2].src;
+    }
+    SmallImg[3].onclick = function()
+    {
+      productImg.src = SmallImg[3].src;
+    }
+
+  </script>
+
+{% endblock %} 
+
+{% block footer %} {% include 'footer.html' %}{% endblock %}
+  
+
+
+

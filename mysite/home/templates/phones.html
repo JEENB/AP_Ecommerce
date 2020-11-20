@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block title %} Phones {% endblock %}
+{% block body %}
+{% load static %}
+
+{% if messages %}
+{% for message in messages %}
+<div style="float: left; margin-left: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; background-color: rgb(178, 223, 178); padding: 7px; border-radius: 5px;font-size: 12px; ">
+  {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+<div>
+    <section id="smart-phones">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2><b>Smart Phones </b></h2>
+            <div class="row row2">
+              <select class="sort">
+                <option>Default Sorting</option>
+                <option>Sort by price</option>
+                <option>Sort by popularity</option>
+                <option>sort by rating</option>
+              </select>
+              </div>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">  
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner">
+              <div class="item active">
+                <div class="row">
+                  {% for smart in phones_page %}
+  
+                    <div class="col-sm-3">
+                      <div class="thumb-wrapper">
+                        <div class="img-box">
+                          <img src="{{ smart.image }}" class="img-responsive" alt="hello">
+                        </div>
+                        <div class="thumb-content">
+                          <a class="nav-link" href="/product/{{ smart.id }}/{{ smart.slug }}"><h4>{{ smart.title }}</h4></a>                        <p class="item-price"> <span>Rs. {{ smart.price }}</span></p>
+                          <div class="star-rating">
+                            {% if smart.averagerev <= 1%}
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                            </ul> 
+                            {% elif smart.averagerev  <= 2 %}
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                            </ul> 
+      
+                            {% elif smart.averagerev <= 3 %}
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                            </ul> 
+      
+                            {% elif smart.averagerev <= 4 %}
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                            </ul> 
+      
+                            {% elif smart.averagerev <= 5 %}
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star"></i> 
+                            </ul> 
+      
+                            {% else %}
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-star"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i> 
+                            </ul> 
+                            {% endif %}
+                          </div>
+                          <a href="/order/cart/{{ smart.id }}" class="btn btn-primary">Add to Cart</a>
+                          <a href="/wishlist/wishlistcart/{{ smart.id }}" class="btn btn-primary"> Add to Wishlist</a>
+
+                        </div>						
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-btn">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>&#8594;</span>
+      </div>
+    </section>
+  </div>
+
+
+
+
+{% endblock %} 
+
+{% block footer %} {% include 'footer.html' %}{% endblock %}

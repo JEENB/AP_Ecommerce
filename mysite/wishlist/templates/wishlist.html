@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %} Wishlist {% endblock %}
+{% block body %}
+
+  <h2 style="text-align: center;">My Wishlist</h2>
+  <section id="cart-page">
+      <div class="row-11">
+        <div class="container-1">
+          <table>
+            <tr>
+                <th>Product</th>
+                <th>Subtotal</th>
+            </tr>
+            {% for smart in wishlists %}
+              <tr>
+                <td>
+                  <div class="cart-info">
+                    <img src="{{ smart.product.image }}">
+                    <div>
+                      <a class="nav-link" href="/product/{{ smart.product.id }}/{{ smart.product.slug }}"><h5>{{ smart.product.title }}</h5></a>
+                    <a href="/wishlist/wishlistremove/{{ smart.id }}" onclick="return confirm('{{ smart.product.title }} will be removed from your wishlist!')">Remove from wishlist</a>
+                    </div>
+                  </div>
+                </td>
+                <td>{{ smart.product.price }}</td>
+              </tr>
+            {% endfor %}                  
+    
+  </section>  
+{% endblock %} 
+
+
+

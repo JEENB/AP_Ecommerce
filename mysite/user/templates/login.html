@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block body %}
+{% load static %}
+
+{% if messages %}
+        {% for message in messages %}
+        <div style="float: left; margin-left: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; background-color: rgb(178, 223, 178); padding: 7px; border-radius: 5px;font-size: 12px; ">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+<form class="form-signin" action="" method="POST"> 
+    {% csrf_token %} 
+    <img src="{% static ''%}Images/download.png">
+    <h1 class="h3 mb-3 font-weight-normal">Please Login</h1> 
+    <label for="username" class="sr-only">Username</label>
+    <input name="username" type="text" placeholder="Username" required autofocus>
+    <br>
+
+    <label for="Password" class="sr-only">Password</label>
+    <input name="password" type="password" placeholder="Password" required>
+
+    
+    <input style="margin-top: 0.5cm;" type="submit" class="btn btn-primary btn-lg" value="Login">
+    <div class="container" style="background-color:#f1f1f1;">
+        <span class="psw"><a href="/signup"> Create an account</a></span>
+
+    </div>
+
+</form>
+    
+{% endblock %} 
+
+{% block footer %} {% include 'footer.html' %}{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %} Update Profile {% endblock %}
+{% block body %}
+{% load static %}
+
+
+{% if messages %}
+  {% for message in messages %}
+  <div style="float: left; margin-left: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: 700; background-color: rgb(178, 223, 178); padding: 7px; border-radius: 5px;font-size: 12px; ">
+    {{ message }} 
+  </div>
+  {% endfor %}
+{% endif %}
+
+    <div class="container">
+      <h1>Update My Profile</h1>
+
+      <form class="singup-form" method= "POST">
+        {% csrf_token %}
+        <fieldset>
+            {{ userupdate_form.as_p }}
+            {{ profileupdate_form.as_p }}
+        </fieldset>
+        <div class="clearfix">
+            <button type="submit" class="signupbtn">Update</button>
+        </div>
+      </form>
+
+
+
+{% endblock %} 
+
+{% block footer %} {% include 'footer.html' %}{% endblock %}

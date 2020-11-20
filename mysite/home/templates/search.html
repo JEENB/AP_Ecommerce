@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %} Search {{ query }} {% endblock %}
+{% block body %}
+{% load static %}
+
+<div>
+    <section id="smart-phones">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2><b>Your Search Result </b></h2>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+            <!-- Carousel indicators -->
+            <!-- Wrapper for carousel items -->
+            {% if search_product %}
+                <div class="carousel-inner">
+                <div class="item active">
+                    <div class="row">
+                    {% for smart in search_product %}
+                        <div class="col-sm-3">
+                        <div class="thumb-wrapper">
+                            <div class="img-box">
+                            <img src="{{ smart.image }}" class="img-responsive" alt="hello">
+                            </div>
+                            <div class="thumb-content">
+                            <a class="nav-link" href="/product/{{ smart.id }}/{{ smart.slug }}"><h4>{{ smart.title }}</h4></a>                        <p class="item-price"> <span>Rs. {{ smart.price }}</span></p>
+                            <div class="star-rating">
+                                <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                </ul>
+                            </div>
+                            <a href="/order/cart/{{ smart.id }}" class="btn btn-primary">Add to Cart</a>
+                          <a href="/wishlist/wishlistcart/{{ smart.id }}" class="btn btn-primary"> Add to Wishlist</a>
+                            </div>						
+                        </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                </div>
+            {% else %}
+                <img style="display: block; margin-left: auto; margin-right: auto; width: 65%;" src="https://cdn.dribbble.com/users/1798580/screenshots/4221448/no-result-found-1.jpg">
+            {% endif %}
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+{% endblock %} 
+
+{% block footer %} {% include 'footer.html' %}{% endblock %}

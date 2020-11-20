@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} My Orders {% endblock %}
+{% block body %}
+
+<h2 style="text-align: center;">My Orders</h2>
+
+        <section id="cart-page">
+
+          <div class="row-11">
+            <div class="container-1">
+              <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Status</th>
+                    <th>Shipping Details</th>
+                    <th>Order Date</th>
+                </tr>
+                {% for smart in orders %}
+                  <tr>
+                    <td>
+                      <div class="cart-info">
+                        <img src="{{ smart.product.image }}">
+                        <div>
+                          <a class="nav-link" href="/product/{{ smart.product.id }}/{{ smart.product.slug }}"><h5>{{ smart.product.title }}</h5></a>
+                          <small>Rs. {{ smart.price }}</small>
+                          <br>
+                        <small>Order Code: {{ smart.order.ordercode }}</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{ smart.status }}</td>
+                    <td>{{ smart.shipping }}</td>
+                    <td>{{ smart.created }}</td>
+                  </tr>
+                {% endfor %}
+                
+
+          
+        </section>  
+
+{% endblock %}

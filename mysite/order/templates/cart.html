@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %} Cart {% endblock %}
+{% block body %}
+{% load static %}
+      
+      <!-----Cart Items Details ----->
+
+      <h2 style="text-align: center;">My Cart</h2>
+
+        <section id="cart-page">
+
+          <div class="row-11">
+            <div class="container-1">
+              <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+                {% for smart in cart %}
+                  <tr>
+                    <td>
+                      <div class="cart-info">
+                        <img src="{{ smart.product.image }}">
+                        <div>
+                          <a class="nav-link" href="/product/{{ smart.product.id }}/{{ smart.product.slug }}"><h5>{{ smart.product.title }}</h5></a>
+                          <small>Rs. {{ smart.product.price }}</small>
+                          <br>
+                        <a href="/order/remove/{{ smart.id }}" onclick="return confirm('{{ smart.product.title }} will be removed from the cart!')">Remove</a>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{ smart.quantity }}</td>
+                    <td>{{ smart.amount }}</td>
+                  </tr>
+                {% endfor %}
+                
+
+          <div class="total-price">
+            <table>
+              <tr>
+                <td><b>Subtotal</b></td>
+                <td>Rs. {{ total }}</td>
+              </tr>
+              <tr> 
+                <td><b>Shipping</b></td>
+                <td>Rs. {{ shipping }}</td>
+              </tr>
+              <tr> 
+                <td><b>Total</b></td>
+                <td>Rs. {{ net }}</td>
+              </tr>
+            </table>
+          </div> 
+          <div>
+            <a href="/order/billing" class="btn btn-primary">Continue to Checkout</a>
+          </div>
+          
+        </section>  
+{% endblock %} 
+
+{% block footer %} {% include 'footer.html' %}{% endblock %}
+
