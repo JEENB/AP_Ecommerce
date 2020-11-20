@@ -12,7 +12,7 @@ Make sure you have all the packages installed in your system (ref: requirements.
 Run: python manage.py runserver
 
 ### Admin Superuser
-username: admin
+username: admin\
 password: admin
 
 ## Developers
