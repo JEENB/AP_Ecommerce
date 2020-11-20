@@ -11,6 +11,9 @@ Navigate into "ADV_Project/mysite" for your terminal.\
 Make sure you have all the packages installed in your system (ref: requirements.txt).\
 Run: python manage.py runserver
 
+### Admin Superuser
+username: admin
+password: admin
 
 ## Developers
 Aditya Joshi \
