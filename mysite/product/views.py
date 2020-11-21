@@ -6,7 +6,6 @@ from product.models import Review, ReviewForm
 
 
 def addreview(request, id):
-    geturl = request.META.get('HTTP_REFERER')
     current_user = request.user 
 
     if request.method == 'POST':
@@ -19,6 +18,10 @@ def addreview(request, id):
             rev.product_id  = id
             rev.save()
             messages.success(request, "Your review has been sent. Thank You!!")
-            return HttpResponseRedirect(geturl)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.error(request, "Error")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
     return HttpResponseRedirect(geturl)

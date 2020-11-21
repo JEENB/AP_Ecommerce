@@ -22,7 +22,7 @@ class Product(models.Model):
     category        = models.CharField(max_length = 18, choices = FILTERS)
     title           = models.CharField(max_length = 120)
     description     = models.CharField(max_length = 255)
-    keywords        = models.CharField(max_length = 255)
+    brand           = models.CharField(max_length = 255)
     status          = models.CharField(max_length = 18, choices = STATUS)
     image           = models.URLField(default='')
     slug            = models.SlugField(unique = True, null = False, max_length=15)
